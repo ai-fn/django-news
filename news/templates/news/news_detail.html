@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ news_item.title }} - {{ block.super }}
+{% endblock %}
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: <a class="category-link" href="{{ news_item.category.get_absolute_url }}">{{ news_item.category }}</a>
+    </div>
+    <div class="card-body">
+        {% if news_item.photo %}
+        <img src="{{ news_item.photo.url }}" alt="" width="350" class="float-start me-3">
+        {% else %}
+        <img src="https://picsum.photos/id/870/350/354?grayscale&blur=2" alt="" height="350" class="float-start me-3">
+        {% endif %}
+        <h5 class="card-title">{{ news_item.title|safe }}</h5>
+        <p class="card-text">{{ news_item.content|safe}}</p>
+    </div>
+    <div class="card-footer text-muted d-flex">
+        <span>{{ news_item.created_at|date:"Y-m-d H:m:s" }}</span>
+        <span>Просмотров: {{ news_item.views }}</span>
+    </div>
+</div>
+{% endblock %}
